@@ -1,0 +1,32 @@
+def google(search, time):
+    """ This algorithm puts a list of names (DataFrame) in google and returns the
+    the number of results found. Further, it corrects for a certain year. 
+    For further discussion, look into the file control variables. """
+    results_next = []
+    
+    for i in range(len(search)):
+        name = quote(search[i])
+        name = name.replace(' ','+')
+        year = quote(time)
+        year = year.replace(' ', '+')
+        
+        page_link = 'https://www.google.com/search?q=' + name + year
+            
+        sleep(3)
+
+        page_response = requests.get(page_link, timeout=5)
+
+        page_content = BeautifulSoup(page_response.content, "html.parser")
+
+        result = []
+    
+        for j in range(0,23):
+            div = page_content.find_all("div")[j]
+            result.append(div)
+            
+        div_2 = div.find(id="resultStats").text
+        results_next.append([search[i], time, div_2])
+            
+    data_google = pd.DataFrame(data=results_next, columns = ['Name_total', 'Jahr', 'result'])
+    
+    return data_google
