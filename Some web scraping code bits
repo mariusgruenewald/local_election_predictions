@@ -1,0 +1,49 @@
+def get_page(link):
+    
+    """ Here, the code retrieves the web page and parses them according to html format.
+    Virtually everywhere, the names are stored within a 'div' category. This is done in here, too.
+    Headers fakes a real browser to access webpages.
+    Lastly, a list of all results is made (not sure if that's necessary, prob only in loop-context)."""
+    
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+
+    page_response = requests.get(link, headers = headers, timeout=5)
+    page_content = BeautifulSoup(page_response.content, "html.parser")
+    divs = page_content.find_all("div")
+    
+    return divs
+
+
+def split_data(data, sign):
+    
+    """ split string along any 'delimiter' """
+    
+    data_new = data.apply(str)
+    data_new_2 = data_new.str.split(sign, expand = True)
+    return data_new_2
+    
+def doctor(data, column):
+    
+    """ Identify the persons having Dr.
+    -> up to now: gives only the name of the person with a doctor title but not only the title"""
+    
+    new_2 = data[column].str.split('.', expand = True)
+    data['Doc'] = new_2[1]
+    data.Name_total = data.Name_total.str.replace('Dr.', '').str.replace('med.', ' ').str.replace('Priv.-Doz.', '').str.replace('Prof.', '')
+    return data
+    
+def pre_name(data):
+    
+    """ Here, we are going to separate 
+    first and last name as well as any title"""
+    
+    new = data['Name'].str.split(",", expand = True)
+    data["Nachname"]= new[0]
+    data["Vorname"]= new[1]
+    data.Nachname = data.Nachname.str.replace('Dr.', '')
+
+def combine_name(data):
+    
+    """ Combine separate columns to get googleable name"""
+    
+    data['Name_total'] = data[['Vorname', 'Nachname']].apply(lambda x: ' '.join(x), axis=1)
