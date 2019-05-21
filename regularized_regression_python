@@ -1,0 +1,122 @@
+""" This document shows how I approach the regularized regression approach """ 
+
+
+""" As usual, we start by importing the relevant packages"""
+
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import StandardScaler # scales variables to be mean=0,sd=1
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import LassoCV
+from sklearn.linear_model import LassoLarsCV
+from sklearn.pipeline import Pipeline 
+from sklearn.metrics import f1_score, accuracy_score # Are not actively used, but could be a valuable extension
+import pandas as pd
+import numpy as np
+
+
+
+""" Since, regularized regression, as a training method, is able to detect 'useless' variables there is little need for a 
+    rigorous pre-selection of variables. This function creates interaction terms of every variable. Further, it creates 
+    second-order polynomials for each variable."""
+
+def CombineAttributes(data, var_list):
+    for i in var_list:
+        for j in var_list:
+            if i == j:
+                name = str(i)+ '_square'
+                data[name] = data.loc[:, i] * data.loc[:, i]
+
+            else:
+                name =  str(i)+ '_' +str(j)
+                data[name] = data.loc[:, i] * data.loc[:, j]
+
+    return data
+    
+    
+    
+    """ Import the relevant data and clean it"""
+
+dataframe_1 = pd.read_excel(r'C:\Users\mariu\Desktop\Project\Historical Data\Data_mai.xlsx')
+dataframe = dataframe_1.dropna().reset_index()
+
+
+
+# Declare X and Y variable
+
+X_name = ['place_list', 'incumbent', 'woman', 'woman_2014', 'doctor', 'federal_election', 'artistocracy', 'google', 'google_zero',
+         'google_b1000', 'google_b100', 'google_million', 'population', 'share_students', 'unemployment', 'share_old','CDU', 'SPD', 
+         'Linke', 'FDP', 'Grüne', 'AfD', 'share_youth', 'share_migrants', 'share_pupils', 'year'
+         ]
+
+X = dataframe[['place_list', 'incumbent', 'woman', 'woman_2014', 'doctor', 'year',
+               'federal_election', 'artistocracy', 'google', 'google_zero', 'google_b1000', 'google_b100', 
+               'google_million', 'population', 'share_students', 'unemployment', 'share_old','CDU', 'SPD', 'Linke', 'FDP', 'Grüne', 'AfD', 
+               'share_youth', 'share_migrants', 'share_pupils'
+              ]]
+y = dataframe['votes']
+
+
+
+# Make use of the interaction function from above
+CombineAttributes(X, X_name)
+
+
+
+# Split dataset, now necessary
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
+
+
+
+" Here, a simple Lasso regression. Using default value 1 for alpha(lambda)."
+
+lasso_reg = Lasso()
+lasso_reg.fit(X_train, y_train)
+lasso_pred = lasso_reg.predict(X)
+comparison_lasso = pd.DataFrame({'Actual': y, 'Predicted': lasso_pred})
+comparison_lasso.head(25), lasso_reg.coef_, lasso_reg.score(X_test, y_test) # Score is the R_sqrd 
+
+
+
+""" However, it makes more sense to use cross-validation, since the parameter alpha should be selected 
+    by the data. Further, normalize the data to restrict the influence of outliers."""
+
+res_lasso_cv = LassoCV(cv=10, n_alphas=10, normalize = True).fit(X_train, y_train)
+res_lasso_cv.score(X,y), res_lasso_cv.coef_, res_lasso_cv.alpha_
+
+
+
+""" Using LARS algorithm while cross validate the "alpha" parameter. (In the original paper it's actually called lambda) 
+    Not sure if that's really helpful -> check that again"""
+
+res_lasso_lars_cv = LassoLarsCV(cv=10, max_n_alphas=1000).fit(X_train, y_train)
+res_lasso_lars_cv.score(X,y), res_lasso_lars_cv.coef_, res_lasso_lars_cv.alpha_
+
+
+
+""" Now, I'm trying to manualize the process. First, a grid of possible alpha(lambda) values is constructed. Standardize and regress 
+    in a pipeline. Basically, this means you always standardize automatically before regressing when calling the pipeline. 
+    Next, apply grid search to tune the hyperparameter alpha. Fit tranings data"""
+
+param_grid = {'estimator__alpha': [5, 7, 9, 10, 10.5, 10.75, 11, 11.25, 11.5, 11.75, 12, 12.5, 13, 13.5]}
+max_iter = [4000]
+
+lasso_pipe = Pipeline([('scale', StandardScaler()), ('estimator', Lasso())])
+
+lin_cv = GridSearchCV(estimator=lasso_pipe,
+                      param_grid = param_grid,
+                      n_jobs=-1,
+                      verbose=2,
+                      cv=10)
+lin_cv.fit(X_train, y_train)
+lin_cv.cv_results_, lin_cv.predict(X_test), lin_cv.best_estimator_, lin_cv.best_params_, lin_cv.best_score_
+
+
+
+""" Take the best alpha and take a closer look at the coefficients and stuff """
+
+lasso_reg_2 = Lasso(alpha = 11.25)
+lasso_reg_2.fit(X_train, y_train)
+lasso_pred_2 = lasso_reg_2.predict(X_test)
+comparison_lasso = pd.DataFrame({'Actual': y_test, 'Predicted': lasso_pred_2})
+comparison_lasso.head(30), lasso_reg_2.score(X_test,y_test), lasso_reg_2.coef_
