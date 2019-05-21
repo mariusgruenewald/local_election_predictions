@@ -120,3 +120,11 @@ lasso_reg_2.fit(X_train, y_train)
 lasso_pred_2 = lasso_reg_2.predict(X_test)
 comparison_lasso = pd.DataFrame({'Actual': y_test, 'Predicted': lasso_pred_2})
 comparison_lasso.head(30), lasso_reg_2.score(X_test,y_test), lasso_reg_2.coef_
+
+
+
+""" Let's see which variable get's excluded/included and the corresponding coefficient """
+
+X2 = X.columns.get_values()
+list_coefficients = pd.DataFrame({'Variable': X2, 'Coefficient': lasso_reg_2.coef_})
+list_coefficients.head(40)
