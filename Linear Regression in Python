@@ -1,27 +1,45 @@
 """ First, we start with a linear regression (Lower hanging fruits are always harvested first) """
 
+
 # Import packages
+
 from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split 
+from sklearn.linear_model import SGDRegressor
+from sklearn.model_selection import train_test_split
 import pandas as pd
 import statsmodels.api as sm
 
 
+
 # Start by importing data - one with incumbent(clean) the other without
-dataframe = pd.read_excel(r'C:\Users\mariu\Desktop\Project\Historical Data\Data_BW_2009_2014.xlsx')
-dataframe_2 = pd.read_excel(r'C:\Users\mariu\Desktop\Project\Historical Data\Data_clean.xlsx')
+
+dataframe_1 = pd.read_excel(r'C:\Users\mariu\Desktop\Project\Historical Data\Data_mai.xlsx')
+dataframe = dataframe_1.dropna().reset_index()
+
 
 
 # Declare X and Y variable
-X = dataframe[['place_list', 'place_list_sq', 'woman', 'woman_2009', 'woman_2014', 'doctor', 'year', 'CDU', 'SPD', 'Grüne', 'FDP', 'Linke', 'AfD', 'Piraten', 'artistocracy']]
+
+X = dataframe[['place_list', 'place_list_sq', 'incumbent', 'woman', 'woman_2014', 'doctor', 
+               'federal_party', 'artistocracy', 'google', 'google_zero', 'google_b1000', 'google_b100', 
+               'google_million', 'population', 'share_students', 'CDU_share_student', 'SPD_share_student',
+               'Grüne_share_student', 'FDP_share_student', 'Linke_share_student', 'unemployment', 'share_old',
+               'CDU_unemployment', 'SPD_unemployment', 'Grüne_unemployment', 'FDP_unemployment',
+               'Linke_unemployment', 'CDU_share_old', 'SPD_share_old', 'Grüne_share_old', 'FDP_share_old',
+               'Linke_share_old', 'CDU', 'SPD', 'Linke', 'FDP', 'Grüne', 'AfD', 'CDU_share_youth', 
+               'SPD_share_youth', 'Grüne_share_youth', 'FDP_share_youth', 'Linke_share_youth',
+               'share_youth', 'CDU_share_migrants', 'SPD_share_migrants', 'Grüne_share_migrants', 
+               'FDP_share_migrants', 'Linke_share_migrants', 'share_migrants', 'share_pupils',
+               'CDU_share_pupils', 'SPD_share_pupils', 'Grüne_share_pupils', 'FDP_share_pupils', 'Linke_share_pupils'
+              ]]
 y = dataframe['votes']
 
-X_2 = dataframe_2[['place_list', 'place_list_sq', 'woman', 'woman_2009', 'woman_2014', 'incumbent', 'doctor', 'year', 'CDU', 'SPD', 'Grüne', 'FDP', 'Linke', 'AfD', 'Piraten', 'artistocracy']]
-y_2 = dataframe_2['votes']
 
 
-# Split dataset, not necessary for Linear regression, but for machine learning. So why not do it in the first place
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+# Split dataset, not necessary for Linear regression, but for machine learning.
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
+
 
 
 # Perform linear regression with the training data
@@ -29,8 +47,12 @@ lin_reg = LinearRegression()
 lin_reg = lin_reg.fit(X_train,y_train)
 
 
+
+
 # Check out coefficients
 lin_reg.coef_, lin_reg.intercept_
+
+
 
 # Check the accuracy of the model
 lin_reg.score(X,y)
@@ -40,3 +62,17 @@ lin_reg.score(X,y)
 y_pred = lin_reg.predict(X_test)
 comparison = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
 comparison
+
+
+# Check a different program, closer to stata output
+model = sm.OLS(y, X).fit(cov_type='HC3')
+predictions = model.predict(X)
+model.summary()
+
+
+
+""" Now, different approach -> Gradient Descent. 
+    Iterative minimization of a convex cost function"""
+
+sgd_reg = SGDRegressor(max_iter = 5000, penalty = 'l2', eta0 = 0.1, tol = 0.00001)
+sgd_reg.fit(X, y.ravel()), sgd_reg.coef_
