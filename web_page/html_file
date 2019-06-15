@@ -1,0 +1,33 @@
+<! DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<title>What's in the tab</title>
+	<meta charset="UTF-8">
+</head>
+
+
+<body>
+
+	<header>
+		<h1>Some Forecasting Headline -  We're so awesome</h1>
+		<h2>Some more information </h2>
+	</header>
+
+
+	Here should be some bloody text
+
+	<div>
+		<a href="https://plot.ly/~marius92/23/?share_key=NdB1UYFTtOhO1rCpNY7aN0" target="_blank" title="Ulm Forecast copy" style="display: block; text-align: center;"><img src="https://plot.ly/~marius92/23.png?share_key=NdB1UYFTtOhO1rCpNY7aN0" alt="Ulm Forecast copy" style="max-width: 100%;width: 800px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+		<script data-plotly="marius92:23" sharekey-plotly="NdB1UYFTtOhO1rCpNY7aN0" src="https://plot.ly/embed.js" async></script>
+	</div>
+
+	<footer>
+        <p>&copy;2019 Marius Grünewald. All rights reserved.</p>
+    </footer>
+
+</body>
+
+
+</html>
