@@ -1,0 +1,9 @@
+This file gives a brief overview of what to do with the documents in order to get the website started locally.
+
+1. Download all files and save them in the same folder (local computer).
+
+2. To edit any of the files, open them in an Editor (I use notepad++ but others work to).
+
+3. To see the output open an html file (main_page) via double click.
+
+The CSS file determines the style of the website while the others determine the content. Each tab needs an own html file.
