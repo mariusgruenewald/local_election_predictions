@@ -1,0 +1,84 @@
+h1, h2, h3, nav {
+font-family: 'Noto Sans HK', sans-serif;
+}
+
+p{
+font-family: 'Montserrat', sans-serif;
+}
+
+nav ul li{
+display: inline-block;
+margin: 0px;
+padding-top: 16px;
+padding-bottom: 16px;
+padding-left: 32px;
+padding-right: 64px;
+
+}
+
+nav{
+	text-align:center;
+	background-color: #535f67;
+}
+
+nav a{
+	color: #f4f4f4;
+	vertical-align: center;
+}
+
+main a:hover{
+	color:#70aedd;
+	transition: 0.1s linear;
+}
+
+nav a:hover{
+	color:#70aedd;
+	transition: 0.1s linear;
+}
+
+header h1{
+text-align: center;
+color: #535f67;
+padding-top: 64px;
+}
+
+section ul li{
+display:block
+}
+
+header h2{
+text-align: center;
+color: #535f67;
+}
+
+main article{
+	margin-top: 16px;
+	margin-left: 32px;
+	text-align: left;
+	max-width: 500px;
+}
+
+main ul li{
+	display: inline-block;
+	padding-top: 16px;
+	padding-bottom: 16px;
+	padding-left: 72px;
+	padding-right: 32px;
+	vertical-align: text-top;
+	text-align: center;
+}
+
+iframe {
+	float: left;
+	max-width: 640px;
+}
+
+footer {
+	padding-top: 64px;
+	padding-bottom: 64px;
+	padding-left: 64px;
+}
+
+ul li, ol li{
+	margin: 4px;
+}
