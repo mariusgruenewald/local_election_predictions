@@ -2,8 +2,10 @@ This file gives a brief overview of what to do with the documents in order to ge
 
 1. Download all files and save them in the same folder (local computer).
 
-2. To edit any of the files, open them in an Editor (I use notepad++ but others work to).
+2. The names I give the files can be applied as the name of the files to save. If done so, no adjustment needed. Otherwise, adjust for the names.
 
-3. To see the output open an html file (main_page) via double click.
+3. To edit any of the files, open them in an Editor (I use notepad++ but others work to).
+
+4. To see the output open an html file (main_page) via double click.
 
 The CSS file determines the style of the website while the others determine the content. Each tab needs an own html file.
