@@ -1,0 +1,126 @@
+<! DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+	<title>Project Local Elections</title>
+	<meta charset="UTF-8">
+	<meta name = "author" content = "Marius Grünewald">
+	<meta name = "description" content = "The Project Local Elections website provides forecasts and analysis of municipal elections in Europe.">
+	
+	<meta property="og:description" content="The Project Local Elections website provides forecasts and analysis of municipal elections in Europe.">
+	<meta property="og:title" content="Project Local Elections">
+	
+	<link rel="stylesheet" href="stylesheet.css">
+	
+	<!-- we could add a twitter meta set to provide meta information when sharing on twitter. But I don't use twitter so  no clue what's going on -->
+	
+	<!-- Think about an icon!! -->
+
+	
+</head>
+
+
+<body>
+	
+	
+	<header>
+	
+		<h1>Project Local Elections</h1>
+		<h2>Local Election Forecast With Statistical Tools</h2>
+		
+	</header>
+	
+	<nav>
+	
+		<ul>
+		
+        <li><a href = "main_page.html">About the Project</a></li>
+		<li><a href = "forecasts.html">Forecasts</a></li>
+		<li><a href = "analysis.html">Analysis</a></li>
+		<li><a href = "about_us.html">Who we are</a></li>
+		<li><a href = "contact.html">Contact</a></li>
+		
+     
+		
+		<li>
+       <form>
+	    
+         <input type="search" name="q" placeholder="Search query">
+         <input type="submit" value="Go!">
+		
+       </form>
+	   </li>
+	   </ul>
+		
+	</nav>
+
+	<main>
+	
+	<ul>
+	
+	<li>
+	
+	<article>
+	
+	<p>
+	<h3> About the project </h3>
+	Here some presentation about the project overall.
+	It is awesome, because <br>
+	It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.
+	However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters.
+	“My dear Mr. Bennet,” said his lady to him one day, “have you heard that Netherfield Park is let at last?”
+	Mr. Bennet replied that he had not.
+	“But it is,” returned she; “for Mrs. Long has just been here, and she told me all about it.”
+	Mr. Bennet made no answer.
+	“Do you not want to know who has taken it?” cried his wife impatiently.
+	“You want to tell me, and I have no objection to hearing it.”
+	This was invitation enough.
+	“Why, my dear, you must know, Mrs. Long says that Netherfield is taken by a young man of large fortune from the north of England; that he came down on Monday in a chaise and four to see the place, and was so much delighted with it, that he agreed with Mr. Morris immediately; that he is to take possession before Michaelmas, and some of his servants are to be in the house by the end of next week.”
+	“What is his name?” <br>
+	“Bingley.” <br>
+	“Is he married or single?”
+	“Oh! Single, my dear, to be sure! A single man of large fortune; four or five thousand a year. What a fine thing for our girls!”
+	</p>
+	
+	</article>
+	
+	</li>
+	
+	<li>
+	
+		<h3> Latest Forecast </h3>
+		<ul>
+		<li><a href = "forecasts.html" class="Latest_article">Link to a article</a> </li> <br>
+		<li><a href = "forecasts.html" class="Lastet_article">Link to other article</a> </li>
+		</ul>
+
+
+		<h3>Latest Analysis</h3>
+		
+		<ul>
+		
+		<li><a href = "analysis.html">Latest analysis</a></li> <br>
+		<li><a href = "analysis.html">Prior analysis</a></li>
+		
+		</ul>
+		
+		
+		
+	</li>
+		
+	</ul>
+
+	</aside>
+	
+	</main>
+
+	<footer>
+        <p>&copy; 2019 Marius Grünewald. All rights reserved.</p>
+    </footer>
+
+</body>
+
+
+</html>
