@@ -1,0 +1,365 @@
+from sklearn.preprocessing import StandardScaler # scales variables to be mean=0, sd=1
+from sklearn.pipeline import Pipeline # in case multiple things are performed at the same time
+from sklearn.linear_model import LinearRegression # Baseline
+from sklearn.ensemble import GradientBoostingRegressor # Model 3
+from sklearn.ensemble import RandomForestRegressor # Model 2
+from sklearn.linear_model import LassoCV # Model 1
+from sklearn.linear_model import Lasso # To save time and not do the Cross-Validation every time
+from sklearn.svm import LinearSVR # Model 4
+from sklearn.model_selection import GridSearchCV # Hypertuning of parameters
+from sklearn.ensemble import VotingRegressor # Ensemble estimator
+import pandas as pd
+import numpy as np
+import time
+
+""" Since, regularized regression, as a training method, is able to detect 'useless' variables there is little need for a 
+    rigorous pre-selection of variables. This function creates interaction terms of every variable. Further, it creates 
+    second-order polynomials for each variable."""
+
+def CombineAttributes(data, var_list):
+    for i in var_list:
+        for j in var_list:
+            if i == j:
+                name = str(i)+ '_square'
+                data[name] = data.loc[:, i] * data.loc[:, i]
+
+            else:
+                name =  str(i)+ '_' +str(j)
+                data[name] = data.loc[:, i] * data.loc[:, j]
+
+    return data
+    
+    
+dataframe = pd.read_excel(r'C:\Users\mariu\Desktop\Project\All_Data_BW_1.xlsx')
+
+X_name = ['place_list', 'incumbent', 'woman', 'doctor', 'time', 'federal_election', 'aristocracy', 'google_stan', 'population',
+          'share_students', 'unemployment', 'share_old','CDU', 'SPD', 'Linke', 'FDP', 'Grüne', 'AfD', 'share_youth',
+          'share_migrants', 'share_pupils', 'FW', 'local_list', 'federal_difference', 'youth_list', 'green_alt_list', 
+          'muslim_migrant', 'non_muslim_migrant', 'double_name', 'first_time'
+         ]
+
+# Generate training (pre-2019) and test (2019) datasets
+dataframe_test = dataframe[dataframe['year'] == 2019].reset_index().drop(['index'], axis=1)
+dataframe_train = dataframe[dataframe['year'] != 2019].dropna(subset = ['incumbent']).reset_index().drop(['index'], axis=1)
+
+X_train = dataframe_train[['place_list', 'incumbent', 'woman', 'doctor', 'time', 'federal_election', 'aristocracy', 'google_stan', 'population',
+              'share_students', 'unemployment', 'share_old','CDU', 'SPD', 'Linke', 'FDP', 'Grüne', 'AfD', 'share_youth',
+              'share_migrants', 'share_pupils', 'FW', 'local_list', 'federal_difference', 'youth_list', 'green_alt_list', 
+              'muslim_migrant', 'non_muslim_migrant', 'double_name', 'first_time'
+              ]]
+
+y_train = dataframe_train['votes']
+
+X_test = dataframe_test[['place_list', 'incumbent', 'woman', 'doctor', 'time', 'federal_election', 'aristocracy', 'google_stan', 'population',
+              'share_students', 'unemployment', 'share_old','CDU', 'SPD', 'Linke', 'FDP', 'Grüne', 'AfD', 'share_youth',
+              'share_migrants', 'share_pupils', 'FW', 'local_list', 'federal_difference', 'youth_list', 'green_alt_list', 
+              'muslim_migrant', 'non_muslim_migrant', 'double_name', 'first_time'
+              ]]
+
+y_test = dataframe_test['votes']
+
+
+# Random forest needs less data since 'interactions' are automatically considered
+rand_for_train = dataframe_train[['place_list', 'incumbent', 'woman', 'doctor', 'time', 'federal_election', 'aristocracy', 'google_stan', 'population',
+              'share_students', 'unemployment', 'share_old','CDU', 'SPD', 'Linke', 'FDP', 'Grüne', 'AfD', 'share_youth',
+              'share_migrants', 'share_pupils', 'FW', 'local_list', 'federal_difference', 'youth_list', 'green_alt_list', 
+              'muslim_migrant', 'non_muslim_migrant', 'double_name', 'first_time'
+              ]]
+
+rand_for_test = dataframe_test[['place_list', 'incumbent', 'woman', 'doctor', 'time', 'federal_election', 'aristocracy', 'google_stan', 'population',
+              'share_students', 'unemployment', 'share_old','CDU', 'SPD', 'Linke', 'FDP', 'Grüne', 'AfD', 'share_youth',
+              'share_migrants', 'share_pupils', 'FW', 'local_list', 'federal_difference', 'youth_list', 'green_alt_list', 
+              'muslim_migrant', 'non_muslim_migrant', 'double_name', 'first_time'
+              ]]
+              
+              
+""" Execute the combine function. Then, standardize test and train data on the training set"""
+
+CombineAttributes(X_train, X_name)
+CombineAttributes(X_test, X_name)
+
+X_train_scaled = StandardScaler().fit_transform(X_train)
+X_test_scaled = StandardScaler().fit(X_train).transform(X_test)
+
+X2 = X_train.columns.values
+X2_rand_for = rand_for_test.columns.values
+
+rand_for_train_scaled = StandardScaler().fit_transform(rand_for_train)
+rand_for_test_scaled = StandardScaler().fit(rand_for_train).transform(rand_for_test)      
+
+""" The LASSO """
+""" Run grid search in lasso to figure out the penalization parameter"""
+
+t1 = time.time()                                                # take time, just for interest
+res_lasso_cv = LassoCV(cv=20, n_alphas=50, n_jobs = -1)
+res_lasso_cv.fit(X_train_scaled, y_train)
+t_lasso = time.time() - t1
+
+res_lasso_cv.score(X_train_scaled, y_train), res_lasso_cv.coef_, res_lasso_cv.alpha_    # Check results
+
+----------------------------------- break with code to think about alpha --------------------------------
+lasso = Lasso(alpha = 302.1091452688529)
+
+lasso_comp_pred = res_lasso_cv.predict(X_test_scaled)
+pred_coef_comp = res_lasso_cv.coef_
+X2 = X_train.columns.values
+
+# Coefficients as dataset
+coefficients_lasso = pd.DataFrame({'Variable': X2, 'Coefficient': pred_coef_comp}) # Create a dataset with the estimated coefficients
+coefficients_lasso.to_excel(r'C:\Users\mariu\Desktop\Project\Coefficients_Lasso.xlsx')
+
+# Predictions as dataset
+prediction_lasso = pd.DataFrame({'Prediction': lasso_comp_pred, 'Votes': dataframe_test['votes'], 'city': dataframe_test['city'], 'party': dataframe_test['party'], 'name': dataframe_test['Name_total']})
+prediction_lasso.to_excel(r'C:\Users\mariu\Desktop\Project\Prediction_Lasso.xlsx')
+
+prediction_lasso.head(50), coefficients_lasso.head(70)
+
+########################################################################################################################################
+
+""" RANDOM FOREST """
+""" Grid search for relevant parameters - already reduced"""
+
+param_grid_1 = {
+    'bootstrap': [True],
+    'max_depth': [90],
+    'min_samples_leaf': [3],
+    'min_samples_split': [10],
+    'n_estimators': [86],
+    'max_features':['auto']
+}
+rf = RandomForestRegressor()
+random_forest = GridSearchCV(estimator = rf, param_grid = param_grid_1, 
+                          cv = 5, verbose = 4, n_jobs = 1)
+t2 = time.time()
+random_forest.fit(rand_for_train_scaled, y_train)
+t_random_forest = time.time() - t2
+
+random_forest.score(rand_for_train_scaled,y_train)
+
+------------------------------------------ break to implement grid search results -----------------------------------------------------
+""" Run regression """
+
+rf_1 = RandomForestRegressor(bootstrap = True, max_depth = 90, min_samples_leaf = 3, min_samples_split = 10, n_estimators = 86)
+rf_1.fit(rand_for_train_scaled, y_train)
+
+random_forest_pred = rf_1.predict(rand_for_test_scaled)
+
+feature_importances_coef_comp = rf_1.feature_importances_
+
+list_coefficients = pd.DataFrame({'Variable': X2_rand_for, 'Coefficient': feature_importances_coef_comp}) # Create a dataset with the estimated coefficients
+list_coefficients.to_excel(r'C:\Users\mariu\Desktop\Project\Coefficients_Random_Forest.xlsx')
+
+prediction_random_forest = pd.DataFrame({'Prediction': 
+random_forest_pred, 'Votes': dataframe_test['votes'], 'city': dataframe_test['city'], 'party': dataframe_test['party'], 'name': dataframe_test['Name_total']})
+prediction_random_forest.to_excel(r'C:\Users\mariu\Desktop\Project\Prediction_Random_Forest.xlsx')
+
+prediction_random_forest.head(50), random_forest.best_estimator_, rf_1.feature_importances_, rf_1.n_features_
+
+########################################################################################################################################
+
+""" GRADIENT BOOSTING REGRESSION """
+
+
+param_test1 = {'n_estimators':range(20,200,20)}
+param_test2 = {'max_depth':range(5,16,2), 'min_samples_split':range(200,1001,100)}
+param_test3 = {'min_samples_leaf': [60] }
+
+gradient_boosting_cv = GridSearchCV(estimator = GradientBoostingRegressor(random_state=1, min_samples_leaf = 60,
+                                              n_estimators=180, loss = 'ls', learning_rate = 0.1, max_features = 'sqrt',
+                                              criterion = 'mse', verbose = 10, max_depth = 5, min_samples_split = 300)
+                                    , param_grid = param_test3, cv=5)
+
+t3 = time.time()
+gradient_boosting_cv.fit(X_train_scaled, y_train)
+t_gradient_boosting = time.time() - t3
+
+gradient_boosting_cv.best_params_, gradient_boosting_cv.best_score_
+
+-------------------------------------------------- break, again --------------------------------------------
+
+grad_boost = GradientBoostingRegressor(random_state=1, min_samples_leaf = 60,
+                                              n_estimators=180, loss = 'ls', learning_rate = 0.1, max_features = 'sqrt',
+                                              criterion = 'mse', verbose = 2, max_depth = 5, min_samples_split = 300)
+
+grad_boost.fit(X_train_scaled, y_train)
+
+gradient_boosting_pred = grad_boost.predict(X_test_scaled)
+feature_importances_gradient_boost = grad_boost.feature_importances_
+
+coef_gradient_boost = pd.DataFrame({'Variable': X2, 'Coefficient': feature_importances_gradient_boost}) # Create a dataset with the estimated coefficients
+coef_gradient_boost.to_excel(r'C:\Users\mariu\Desktop\Project\Coefficients_Random_Forest.xlsx')
+
+prediction_gradient_boost = pd.DataFrame({'Prediction': 
+gradient_boosting_pred, 'Votes': dataframe_test['votes'], 'city': dataframe_test['city'], 'party': dataframe_test['party'], 'name': dataframe_test['Name_total']})
+prediction_gradient_boost.to_excel(r'C:\Users\mariu\Desktop\Project\Prediction_Gradient_Boost.xlsx')
+
+prediction_gradient_boost.head(50)
+
+#######################################################################################################################################
+
+"""" SVM Regression """
+
+Cs = [1, 10, 100, 1000, 2000, 3000, 4000]
+param_grid_svr = {'C': Cs}
+
+SVR = LinearSVR
+
+svr_cv = GridSearchCV(estimator = LinearSVR, param_grid = param_grid_svr, cv=5, n_jobs = -1, verbose = 10)
+svr_cv.fit(X_train_scaled, y_train)
+svr_cv.best_params_
+
+------------------------------------------------------------ break ------------------------------------------------------------------
+
+svr = LinearSVR(C = 4150)
+
+svr.fit(X_train_scaled, y_train)
+svr_pred = svr.predict(X_test_scaled)
+
+svr_pred_1 = pd.DataFrame({'Prediction': 
+svr_pred, 'Votes': dataframe_test['votes'], 'city': dataframe_test['city'], 'party': dataframe_test['party'], 'name': dataframe_test['Name_total']})
+
+svr.score(X_train_scaled, y_train), svr_pred_1.head(50)
+
+
+######################################################################################################################################
+
+""" ENSEMBLE """
+
+""" Hypertuning for Ensemble regression"""
+
+ensemble_regression = VotingRegressor([('lasso', res_lasso_cv), ('random_forest', rf_1), ('gradient_boosting', grad_boost), ('SVR', svr)])
+
+param_ensemble = {'weights': [(1, 1, 2, 1), (1, 2, 1, 1), (2, 1, 1, 1), (1, 1, 1, 2), (2, 2, 1, 1), (2, 1, 2, 1), 
+                             (2, 1, 1, 2), (1, 2, 2, 1), (1, 2, 1, 2), (1, 1, 2, 2), (2, 2, 2, 1), (2, 2, 1, 2), (1, 2, 2, 2),
+                             (1, 1, 1, 1), (1, 1, 1, 0), (1, 1, 0, 1), (1, 0, 1, 1), (0, 1, 1, 1), (1, 1, 0, 0), (1, 0, 1, 0),
+                             (1, 0, 0, 1), (0, 1, 1, 0), (0, 1, 0, 1), (0, 0, 1, 1), (2, 2, 1, 0), (2, 2, 0, 1), (2, 1, 0, 2),
+                             (2, 0, 1, 2), (1, 0, 2, 2), (0, 1, 2, 2), (0, 2, 1, 2), (1, 2, 0, 2), (2, 1, 2, 0), (2, 0, 2, 1),
+                             (1, 2, 2, 0), (0, 2, 2, 1), (2, 1, 1, 0), (2, 1, 0, 1), (2, 1, 0, 0), (2, 0, 1, 1), (2, 0, 1, 0),
+                             (2, 0, 0, 1), (1, 2, 1, 0), (1, 2, 0, 1), (0, 2, 1, 0), (1, 2, 0, 0), (0, 2, 1, 1), (0, 0, 2, 1),
+                             (0, 1, 2, 1), (0, 1, 2, 1), (1, 0, 2, 1), (1, 1, 2, 0), (1, 0, 2, 0), (0, 1, 2, 0), (0, 0, 1, 2),
+                             (0, 1, 0, 2), (1, 0, 0, 2), (1, 1, 0, 2), (1, 0, 1, 2), (0, 1, 1, 2)]}
+ensemble_cv = GridSearchCV(estimator = ensemble_regression, param_grid = param_ensemble , cv=5, n_jobs = 4, verbose = 2)
+
+ensemble_cv.fit(X_train_scaled, y_train)
+
+ensemble_cv.best_params_
+
+------------------------------------------------------ break -------------------------------------------------------------------------
+
+"""Forming predictions"""
+
+final_ensemble_regression = VotingRegressor([('lasso', res_lasso_cv), ('random_forest', rf_1), ('gradient_boosting', grad_boost), ('SVR', svr)], weights = [1,2,2,0], n_jobs = 4)
+final_ensemble_regression.fit(X_train_scaled, y_train)
+ensemble_regression_pred = final_ensemble_regression.predict(X_test_scaled)
+
+ensemble_regression_1 = pd.DataFrame({'Prediction': 
+ensemble_regression_pred, 'Votes': dataframe_test['votes'], 'city': dataframe_test['city'], 'party': dataframe_test['party'], 'name': dataframe_test['Name_total']})
+
+final_ensemble_regression.score(X_train_scaled, y_train), ensemble_regression_1.head(50)
+
+#########################################################################################################################################
+#########################################################################################################################################
+
+""" General function that returns the quality of our prediction"""
+
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import mean_squared_error, r2_score
+
+
+def display_score(reg, mse_reg, r2):
+    
+    """ Insert explanation """
+    
+    reg_rmse = np.sqrt(-mse_reg)
+    
+    print('MSE                                  ')
+    print('Scores:', reg_rmse, reg)
+    print('Mean:', reg_rmse.mean(), reg)
+    print('standard Deviation:', reg_rmse.std(), reg)
+    print('R2                                   ')
+    print('Scores:', r2, reg)
+    print('Mean:', r2.mean(), reg)
+    print('standard Deviation:', r2.std(), reg)
+    
+""" LASSO """    
+""" Cross-Validating the Score measure of test set"""
+
+mse_lasso_test = cross_val_score(res_lasso_cv, X_test_scaled, y_test, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_lasso_test = cross_val_score(res_lasso_cv, X_test_scaled, y_test, scoring = 'r2', cv = 10, n_jobs = -1)
+display_score("Lasso", mse_lasso_test, r2_lasso_test)
+
+""" Support Vector Regression Test Score """
+
+mse_svr_test = cross_val_score(svr, X_test_scaled, y_test, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_svr_test = cross_val_score(svr, X_test_scaled, y_test, scoring = 'r2', cv = 10, n_jobs = -1)
+display_score("SVR", mse_svr_test, r2_svr_test)""" Here, we consider the test data for the Random Forest"""
+
+mse_rf_test = cross_val_score(rf_1, rand_for_test_scaled, y_test, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_rf_test = cross_val_score(rf_1, rand_for_test_scaled, y_test, scoring = 'r2', cv = 10, n_jobs = -1)
+display_score("RF", mse_rf_test, r2_rf_test)
+
+""" Here, we consider the test data for the Random Forest"""
+
+mse_rf_test = cross_val_score(rf_1, rand_for_test_scaled, y_test, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_rf_test = cross_val_score(rf_1, rand_for_test_scaled, y_test, scoring = 'r2', cv = 10, n_jobs = -1)
+display_score("RF", mse_rf_test, r2_rf_test)
+
+""" GB: test data"""
+
+mse_gb_test = cross_val_score(grad_boost, X_test_scaled, y_test, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_gb_test = cross_val_score(grad_boost, X_test_scaled, y_test, scoring = 'r2', cv = 10, n_jobs = -1)
+display_score("Gradient Boosting", mse_gb_test, r2_gb_test)
+
+""" Ensemble Regression with Test Data"""
+
+mse_er_test = cross_val_score(final_ensemble_regression, X_test_scaled, y_test, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_er_test = cross_val_score(final_ensemble_regression, X_test_scaled, y_test, scoring = 'r2', cv = 10, n_jobs = -1)
+display_score("Ensemble Regression", mse_er_test, r2_er_test)
+
+#########################################################################################################################################
+
+""" To complete things, the linear regression with the reduced coefficients """
+
+from sklearn.linear_model import LinearRegression
+
+lin_reg = LinearRegression()
+
+lin_reg.fit(rand_for_train_scaled, y_train)
+lin_pred = lin_reg.predict(rand_for_test_scaled)
+
+mse_linreg_train = cross_val_score(lin_reg, rand_for_train_scaled, y_train, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_linreg_train = cross_val_score(lin_reg, rand_for_train_scaled, y_train, scoring = 'r2', cv = 10, n_jobs = -1)
+display_score("Linear Regression", mse_linreg_train, r2_linreg_train)
+import statsmodels.api as smf
+results = smf.OLS(y_train, rand_for_train_scaled).fit()
+print(results.summary())
+
+mse_linreg_test = cross_val_score(lin_reg, rand_for_test_scaled, y_test, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_linreg_test = cross_val_score(lin_reg, rand_for_test_scaled, y_test, scoring = 'r2', cv = 10, n_jobs = -1)
+display_score("Linear Regression", mse_linreg_test, r2_linreg_test)
+
+""" Merge all predictions in one dataset """
+
+all_pred = pd.DataFrame({'Ensemble Prediction': ensemble_regression_pred, 'Support Vector Prediction': svr_pred,
+                         'Gradient Boosting Prediction': gradient_boosting_pred, 'Random Forest Prediction': random_forest_pred,
+                         'Lasso Prediction': lasso_comp_pred, 'Linear Regression Prediction': lin_pred,
+                         'Votes': dataframe_test['votes'], 'city': dataframe_test['city'], 'party': dataframe_test['party'], 'name': dataframe_test['Name_total']})
+
+all_pred.to_excel(r'C:\Users\mariu\Desktop\Project\all_predictions.xlsx')
+
+
+""" All Features/Coefficients in one dataset """
+
+coefficients_lasso = pd.DataFrame({'Variable': X2, 'Coefficients Lasso': res_lasso_cv.coef_, 
+                                   'Coefficients Gradient Boosting': grad_boost.feature_importances_,
+                                   'Coefficients SVM': svr.coef_ ,
+                                  }) # Create a dataset with the estimated coefficients
+
+coefficients_lasso.to_excel(r'C:\Users\mariu\Desktop\Project\Coefficients_Estimators.xlsx')
+
+list_coefficients = pd.DataFrame({'Variable': X2_rand_for, 'Coefficients RF': feature_importances_coef_comp,
+                                 'Coefficients LR': lin_reg.coef_,
+                                 }) # Create a dataset with the estimated coefficients - only the core variables (used for RF and LR)
+
+list_coefficients.to_excel(r'C:\Users\mariu\Desktop\Project\Coefficients_Random_Forest_Lin_Reg.xlsx')
+
