@@ -41,9 +41,6 @@ nav a:hover{
 /* General body settings */
 
 body {
-	background-image: url("C:/Users/mariu/project_local_elections/web_page/images/background.png");
-	background-repeat: no-repeat;
-	background-size: cover;
 	height: 500px;
 	background-position: center;
 	padding-top: 32px;
@@ -58,10 +55,20 @@ main a:hover{
 	transition: 0.1s linear;
 }
 
-header h1{
+header {
+	background-image: url("C:/Users/mariu/project_local_elections/web_page/images/background_header.png");
+	background-color: hsla(0,0%,100%,0.60);
+    background-blend-mode: overlay;
+	background-repeat: no-repeat;
+	background-size: auto;
+	background-position: center;
+
+}
+
+header h1, h2{
 	text-align: center;
 	color: #535f67;
-	padding-top: 64px;
+	padding-top: 16px;
 	padding-bottom: 16px;
 }
 
@@ -78,10 +85,11 @@ header h2{
 }
 
 main article{
+	padding-top: 64px;
 	margin-top: 16px;
 	margin-left: 32px;
-	text-align: left;
-	max-width: 500px;
+	padding-bottom: 64px;
+	text-align: center;
 	background-image: url("C:/Users/mariu/project_local_elections/web_page/images/background.png");
 	background-position: -9000 -9000;
 }
