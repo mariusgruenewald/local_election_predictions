@@ -1,0 +1,338 @@
+""" Evaluate on party seats for each estimator """
+
+from sklearn.linear_model import LinearRegression # Baseline
+import pandas as pd
+import numpy as np
+import time
+import statsmodels.tools.tools as sm
+
+""" General function that returns the quality of our prediction"""
+
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import mean_squared_error, r2_score
+
+
+def display_score(reg, mse_reg, r2):
+    
+    """ Insert explanation """
+    
+    reg_rmse = np.sqrt(-mse_reg)
+    
+    print('MSE                                  ')
+    print('Scores:', reg_rmse, reg)
+    print('Mean:', reg_rmse.mean(), reg)
+    print('standard Deviation:', reg_rmse.std(), reg)
+    print('R2                                   ')
+    print('Scores:', r2, reg)
+    print('Mean:', r2.mean(), reg)
+    print('standard Deviation:', r2.std(), reg)
+
+dataframe_seats = pd.read_excel(r'C:\Users\mariu\Desktop\Project\Evaluation_seats.xlsx')
+
+estimators = ['Ensemble', 'Gradient Boosting', 'Random Forest', 'Lasso', 'Linear Regression', 'Support Vector Machine']
+
+score = []
+
+for i in range(len(estimators)):
+    
+    estimator = estimators[i]
+    data_estimator = dataframe_seats[dataframe_seats['Estimator'].str.match(estimator)]
+    
+    X_seats = data_estimator['Predicted Seats']
+    y_seats = data_estimator['True Seats']
+    X = sm.add_constant(X_seats)
+    
+    mse_eval_seats_estimator = cross_val_score(lin_reg, X, y_seats, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+    r2_eval_seats_estimator= cross_val_score(lin_reg, X, y_seats, scoring = 'r2', cv = 10, n_jobs = -1)
+    display_score(estimator, mse_eval_seats_estimator, r2_eval_seats_estimator)
+    
+
+import plotly.plotly as py
+import plotly.graph_objs as go
+from plotly import tools
+from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
+import plotly.tools as tls
+
+tools.set_credentials_file(username='marius92', api_key='4naxu3XiGZTGniWO02z1')
+
+""" Make a nice graph """
+
+dataframe_seats = pd.read_excel(r'C:\Users\mariu\Desktop\Project\Evaluation_seats.xlsx')
+
+estimators = ['Ensemble', 'Gradient Boosting', 'Random Forest', 'Lasso', 'Linear Regression', 'Support Vector Machine']
+
+colors = ['#0D76BF', '#43B02A', '#F93822', '#3E332E', '#FFD700', '#D62598', '#8D3921', '#F06400', '#c1c0c0', '#c1c0c0', '#c1c0c0',
+         '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0',
+         '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0',
+         '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0',
+         '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0', '#c1c0c0']
+
+parties = ['AfD', 'Grüne', 'SPD', 'CDU', 'FDP', 'Linke', 'Partei', 'FW', 'Piraten', 'UFF', 'Junges Freiburg',
+          'Bürger für Freiburg', 'Urbanes Freiburg', ' FL', 'Für Freiburg', 'GA Freiburg', 'Liste Teilhabe', 'nicht',
+          'Urbanes Freiburg', 'GA Heidelberg', 'Bunte Linke', 'heidelberger', 'HiB', 'Für KA', 'KAL', 'BIG', 'Mannheimer Volkspartei',
+          'Mittelstand für Mannheim', 'Tierschutzpartei', 'BZS 23', 'DIB', 'Fem. Liste', 'Junges Liste', 'Kein Fahrverbot',
+          'öpd', 'sös', 'SchUB', 'Stadtisten', 'BLO', 'UfA', 'UVL', 'WWG', 'UWS']
+
+
+
+for i in range(len(estimators)):
+    
+    estimator = estimators[i]
+    
+    data_estimator = dataframe_seats[dataframe_seats['Estimator'].str.match(estimator)]
+        
+    X_seats = data_estimator[['Predicted Seats', 'Party']]
+    y_seats = data_estimator[['True Seats', 'Party']]
+    
+    data = []
+    
+    for i in range(len(parties)):
+        
+        party_now = parties[i]
+        color_now = colors[i]
+        X_data = X_seats[X_seats['Party'].str.match(party_now)]
+        y_data = y_seats[y_seats['Party'].str.match(party_now)]
+        
+        trace = go.Scatter(
+            x = X_data['Predicted Seats'],
+            y = y_data['True Seats'],
+            name = party_now,
+            mode='markers',
+            marker=dict(
+                color=color_now,
+                size=12,
+                line=dict(
+                    color='rgba(217, 217, 217, 0.14)',
+                    width=0.5),
+                opacity=0.8)
+        )
+        data.append(trace)
+    
+    trace_1 = go.Scatter(
+        x = [0, 5, 10, 16],
+        y = [0, 5, 10, 16],
+        name = 'Fit',
+        mode = 'lines',
+        showlegend=False,
+        marker = dict(
+            color = 'black')
+    )
+
+    data.append(trace_1)
+
+    filename = estimator
+    
+    layout = go.Layout(
+        legend=dict(orientation="h")
+    )
+    fig = dict(data = data, layout = layout)
+    fig['layout'].update(width = 600, height = 600)
+    fig['layout'].update(title = filename, showlegend = False)
+    fig['layout'].update(xaxis = dict(
+                    title = 'Predicted Seats'))
+    fig['layout'].update(yaxis = dict(
+                    title = 'Actual Seats',
+                    tickmode = 'auto'))
+
+    py.iplot(fig, filename = filename)
+
+########################################################################################################################################
+
+""" R2 Score Candidates - the best only """
+
+X_line = [1,2,3,4,5,6,7,8,9,10]
+
+data_line = []
+
+trace_1 = go.Scatter(
+    x = X_line,
+    y = r2_lasso_test,
+    name = 'R2 Lasso',
+    mode = 'lines',
+    marker = dict(
+        color = 'purple')
+)
+
+data_line.append(trace_1)
+
+trace_3 = go.Scatter(
+    x = X_line,
+    y = r2_rf_test,
+    name = 'R2 Random Forest',
+    mode = 'lines',
+    marker = dict(
+        color = 'green')
+)
+
+data_line.append(trace_3)
+
+trace_4 = go.Scatter(
+    x = X_line,
+    y = r2_gb_test,
+    name = 'R2 Gradient Boosting',
+    mode = 'lines',
+    marker = dict(
+        color = 'blue')
+)
+
+data_line.append(trace_4)
+
+trace_5 = go.Scatter(
+    x = X_line,
+    y = r2_er_test,
+    name = 'R2 Ensemble',
+    mode = 'lines',
+    marker = dict(
+        color = 'red')
+)
+
+data_line.append(trace_5)
+
+filename = 'R2_path'
+    
+layout = go.Layout(
+    legend=dict(orientation="h")
+)
+fig = dict(data = data_line, layout = layout)
+fig['layout'].update(width = 600, height = 600)
+fig['layout'].update(title = filename)
+fig['layout'].update(xaxis = dict(
+                title = 'Part of Cross Validation'))
+fig['layout'].update(yaxis = dict(
+                title = 'R2 Score',
+                tickmode = 'auto'))
+
+py.iplot(fig, filename = filename)
+
+######################################################################################################################################
+""" R2 Score Seats """"
+
+data_estimator = dataframe_seats[dataframe_seats['Estimator'].str.match('Linear Regression')]
+X_seats = data_estimator['Predicted Seats']
+y_seats = data_estimator['True Seats']
+X = sm.add_constant(X_seats)
+mse_eval_seats_lin_reg = cross_val_score(lin_reg, X, y_seats, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_eval_seats_lin_reg = cross_val_score(lin_reg, X, y_seats, scoring = 'r2', cv = 10, n_jobs = -1)
+
+X_line = [1,2,3,4,5,6,7,8,9,10]
+
+data_line = []
+
+trace_1 = go.Scatter(
+    x = X_line,
+    y = r2_eval_seats_lin_reg,
+    name = 'R2 Linear Regression',
+    mode = 'lines',
+    marker = dict(
+        color = 'purple')
+)
+
+data_line.append(trace_1)
+
+data_estimator = dataframe_seats[dataframe_seats['Estimator'].str.match('Lasso')]
+X_seats = data_estimator['Predicted Seats']
+y_seats = data_estimator['True Seats']
+X = sm.add_constant(X_seats)
+mse_eval_seats_lasso = cross_val_score(lin_reg, X, y_seats, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_eval_seats_lasso = cross_val_score(lin_reg, X, y_seats, scoring = 'r2', cv = 10, n_jobs = -1)
+
+
+trace_2 = go.Scatter(
+    x = X_line,
+    y = r2_eval_seats_lasso,
+    name = 'R2 Lasso',
+    mode = 'lines',
+    marker = dict(
+        color = 'black')
+)
+
+data_line.append(trace_2)
+
+data_estimator = dataframe_seats[dataframe_seats['Estimator'].str.match('Support Vector Machine')]
+X_seats = data_estimator['Predicted Seats']
+y_seats = data_estimator['True Seats']
+X = sm.add_constant(X_seats)
+mse_eval_seats_svm = cross_val_score(lin_reg, X, y_seats, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_eval_seats_svm = cross_val_score(lin_reg, X, y_seats, scoring = 'r2', cv = 10, n_jobs = -1)
+
+trace_3 = go.Scatter(
+    x = X_line,
+    y = r2_eval_seats_svm ,
+    name = 'R2 Support Vector Machine',
+    mode = 'lines',
+    marker = dict(
+        color = 'green')
+)
+
+data_line.append(trace_3)
+
+data_estimator = dataframe_seats[dataframe_seats['Estimator'].str.match('Random Forest')]
+X_seats = data_estimator['Predicted Seats']
+y_seats = data_estimator['True Seats']
+X = sm.add_constant(X_seats)
+mse_eval_seats_rf = cross_val_score(lin_reg, X, y_seats, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_eval_seats_rf = cross_val_score(lin_reg, X, y_seats, scoring = 'r2', cv = 10, n_jobs = -1)
+
+trace_4 = go.Scatter(
+    x = X_line,
+    y = r2_eval_seats_rf,
+    name = 'R2 Random Forest',
+    mode = 'lines',
+    marker = dict(
+        color = 'blue')
+)
+
+data_line.append(trace_4)
+
+data_estimator = dataframe_seats[dataframe_seats['Estimator'].str.match('Gradient Boosting')]
+X_seats = data_estimator['Predicted Seats']
+y_seats = data_estimator['True Seats']
+X = sm.add_constant(X_seats)
+mse_eval_seats_gb = cross_val_score(lin_reg, X, y_seats, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_eval_seats_gb = cross_val_score(lin_reg, X, y_seats, scoring = 'r2', cv = 10, n_jobs = -1)
+
+trace_5 = go.Scatter(
+    x = X_line,
+    y = r2_eval_seats_gb,
+    name = 'R2 Gradient Boosting',
+    mode = 'lines',
+    marker = dict(
+        color = 'red')
+)
+
+data_line.append(trace_5)
+
+data_estimator = dataframe_seats[dataframe_seats['Estimator'].str.match('Ensemble')]
+X_seats = data_estimator['Predicted Seats']
+y_seats = data_estimator['True Seats']
+X = sm.add_constant(X_seats)
+mse_eval_seats_er = cross_val_score(lin_reg, X, y_seats, scoring = 'neg_mean_squared_error', cv = 10, n_jobs = -1)
+r2_eval_seats_er = cross_val_score(lin_reg, X, y_seats, scoring = 'r2', cv = 10, n_jobs = -1)
+
+trace_6 = go.Scatter(
+    x = X_line,
+    y = r2_eval_seats_er,
+    name = 'R2 Ensemble',
+    mode = 'lines',
+    marker = dict(
+        color = 'orange')
+)
+
+data_line.append(trace_6)
+
+
+filename = 'R2_path_seats'
+    
+layout = go.Layout(
+    legend=dict(orientation="h")
+)
+fig = dict(data = data_line, layout = layout)
+fig['layout'].update(width = 600, height = 600)
+fig['layout'].update(title = filename)
+fig['layout'].update(xaxis = dict(
+                title = 'Part of Cross Validation'))
+fig['layout'].update(yaxis = dict(
+                title = 'R2 Score Seats',
+                tickmode = 'auto'))
+
+py.iplot(fig, filename = filename)
