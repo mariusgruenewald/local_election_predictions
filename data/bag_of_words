@@ -1,0 +1,4 @@
+Here, we can add possible words that may constitute as "populist" phrases. With these words we can run a sentiment analysis to figure out,
+how different parties communicate. Hypothesis: More populist language attracks more "protest voters".
+
+populist_bag = []
