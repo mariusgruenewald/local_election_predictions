@@ -1,4 +1,10 @@
 Here, we can add possible words that may constitute as "populist" phrases. With these words we can run a sentiment analysis to figure out,
 how different parties communicate. Hypothesis: More populist language attracks more "protest voters".
 
-populist_bag = []
+populist_bag = ['gender-', 'gender-ideologie', 'einheitsunis', 'sexualerziehung'?, 'quotenregelungen', 'sharia-recht', 'schariarecht',
+'steuerverschwendung'?, 'zinszockereien', 'asylmissbrauch', 'öko-planwirtschaft', 'kammer-zwangsmitgliedschaften', 'wachpolizei', 
+'kuscheljustiz', 'beflaggen'?, 'gleichma-', 'gleichmacherischen', 'zwangsmitgliedschaften', 'planwirtschaftliches', 'radikal-islamische',
+'aufgeblähten', 'planwirtschaftliche', 'zwangs-', 'bevormundung', zwangssubven-', 'zwangssubventioniert', 'trophäenjäger', 'alt-parteien',
+'aufenthaltszentren', 'abschiebequoten', 'zwangsbeiträge', 'schul-', 'schuldenberg'?, 'nichtstun', 'massenmigration', 'staatsboden',
+'quotenregelungen', 'propagierung', 'disziplinlosigkeit', 'gender-mainstreaming', frühse-', 'früsexualisierung', 'eu-bürokratis-',
+ 'eu-bürokratismus', ]
