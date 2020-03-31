@@ -1,14 +1,26 @@
 Here, we can add possible words that may constitute as "populist" phrases. With these words we can run a sentiment analysis to figure out,
 how different parties communicate. Hypothesis: More populist language attracks more "protest voters".
 
+Criterias: Anti-Elitarismus, Anti-Intellektualismus, Antipolitik, Institutionenfeindlichkeit sowie Moralisierung,
+Polarisierung und Personalisierung der Politik. (https://www.bpb.de/apuz/75848/wesensmerkmale-des-populismus?p=2)
+
 populist_bag = ['gender-', 'gender-ideologie', 'einheitsunis', 'sexualerziehung'?, 'quotenregelungen', 'sharia-recht', 'schariarecht',
 'steuerverschwendung'?, 'zinszockereien', 'asylmissbrauch', 'öko-planwirtschaft', 'kammer-zwangsmitgliedschaften', 'wachpolizei', 
 'kuscheljustiz', 'beflaggen'?, 'gleichma-', 'gleichmacherischen', 'zwangsmitgliedschaften', 'planwirtschaftliches', 'radikal-islamische',
-'aufgeblähten', 'planwirtschaftliche', 'zwangs-', 'bevormundung', zwangssubven-', 'zwangssubventioniert', 'trophäenjäger', 'alt-parteien',
+'aufgeblähten', 'planwirtschaftliche', 'zwangs-', 'bevormundung', 'zwangssubven-', 'zwangssubventioniert', 'trophäenjäger', 'alt-parteien',
 'aufenthaltszentren', 'abschiebequoten', 'zwangsbeiträge', 'schul-', 'schuldenberg'?, 'nichtstun', 'massenmigration', 'staatsboden',
-'quotenregelungen', 'propagierung', 'disziplinlosigkeit', 'gender-mainstreaming', frühse-', 'früsexualisierung', 'eu-bürokratis-',
- 'eu-bürokratismus', 'neofaschismus', 'neoliberalen', 'superreicher', 'superreiche', 'lügenmärchen', 'hartz-iv-regiments', 'indus-',
+'quotenregelungen', 'propagierung', 'disziplinlosigkeit', 'gender-mainstreaming', 'frühse-', 'früsexualisierung', 'eu-bürokratis-',
+ 'eu-bürokratismus', 'neofaschismus'?, 'neoliberalen', 'superreicher', 'superreiche', 'lügenmärchen', 'hartz-iv-regiments', 'indus-',
  'industriemächte', 'rüstungsproduktion', 'sklavenarbeit', 'kinderarbeit', 'konzernlobbyist*innen', 'lohndumping'?, 'tarifflucht',
  'hungerlöhne', 'hungerlohn', 'lohndrückerei', 'besitzverhältnisse', 'planwirtschaft', 'industrieruinen', 'hartz-iv-system', 'schikanen',
- 'zwangsmittel', 'superreichen',
+ 'zwangsmittel', 'superreichen', 'neoliberaler', 'obergrenzen', 'erdoğan-regime', 'kürzungsdiktat', 'standardrentner*in', 'neoliberale',
+ 'beratungsmacht', 'bertelsmannkonzerns'?, 'heilslehren', 'querulantentum'?, 'bertelsmannrepublik', 'multimillionär*innen'?,
+ 'politiker*innendenkmälern', 'massenarbeitslosigkeit'?, 'geheimverhandlungen'?, 'herrschaftsverhältnissen'?, 'zwangsbewirtschaftung', 
+ 'rotstift', 'spekulantentum', 'schrottimmobilien', 'wild-west', 'spekulationsobjekt'?, 'zwangsumzüge', 'halbgaren', 'halbgar', 
+ 'turboabitur', 'ausbildungsmisere', 'selektionsinstrumente'?, 'patriarchalischen'?, 'herabwürdigung', 'waffenschmieden', 
+ 'zwangsunterbringung', 'finanzinvestor*innen'?, 'gülletourismus', 'kükenschreddern', 'umweltzerstörung'?, 'kleinverbraucher*innen'?,
+'großverbraucher*innen'?, 'bevormundung', 'fremdkörper', 'kulturkampf', 'abendland', 'überwachungsstaat', 'überwachungsinstrument',
+'legitimationsdruck', 'förderdschungel', 'brutaler', 'verwüstung', 'generalangriff', 'liquidiert'?,  'ezb-eurosystems',
+ 'liberalisierungsdruck'?, 'braunkohlekahlschlag', 'blitzermara-', 'blitzermarathon', 'salafisten-hochburg', 'enkel-generation', 
+ 'massenvorlesungen', 'wirtschaftsfeindlicher'?, 'werbsverzerrungen'?, 'wettwerbsverzerrungen'?, 'hartz-iv-karrieren', 'preistreiberei',
  ]
