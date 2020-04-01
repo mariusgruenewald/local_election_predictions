@@ -23,4 +23,12 @@ populist_bag = ['gender-', 'gender-ideologie', 'einheitsunis', 'sexualerziehung'
 'legitimationsdruck', 'förderdschungel', 'brutaler', 'verwüstung', 'generalangriff', 'liquidiert'?,  'ezb-eurosystems',
  'liberalisierungsdruck'?, 'braunkohlekahlschlag', 'blitzermara-', 'blitzermarathon', 'salafisten-hochburg', 'enkel-generation', 
  'massenvorlesungen', 'wirtschaftsfeindlicher'?, 'werbsverzerrungen'?, 'wettwerbsverzerrungen'?, 'hartz-iv-karrieren', 'preistreiberei',
- ]
+'no-go-areas', 'banalen', 'blitz-marathons', 'intensivtätern'?, 'clanstrukturen'?, 'rocker-clubs', 'koranverteiler', 'hassprediger',
+ 'gesetzesaktionismus', 'bevormundungspolitik', 'atomfieber', 'pommesbuden', 'raubzug', 'basta-politik', 'trophäenjagden', 
+ 'vw-abgasskandal'?, 'eintagsküken', 'welpenhandel'?, 'atomkatastrophe'?, 'bröckelreaktoren', 'dumpingpreisen', 'juncker-plan',
+'alteingesessene', 'alteingesessen', 'schlachteinrichtungen'?, 'lobbydruck', 'kinderarmutsspirale'?, 'zwangseinweisung',
+'zwangsbehandlung', 'zwangsbehandlungen', 'massenüberwachung', 'heldenhaften', 'menschenverachtenden', 'menschenverachtender',
+'großkonzernen', 'mainstreaming', 'verhetzungsparagraphen', 'angsträume', 'dorfsterben', 'zentralistische', 'dublin-system'?,
+'klimakatastrophen', 'steuergerechtigkeit', 'steueroasen', 'hannelore'?, 'steuerkriminalität', 'steuerbetrüger', 'glückauf',
+'pannenreaktoren', 'schreddern', 'sparschraube', 'bahnhofsumfeldern'?, 'spähangriffe', 'fassadenschmierereien', 'enkeltrick',
+'berufsbeamtentum', 'einheitsschule', 'bauernfamilien', 'misstrauenspolitik', 'flüchtlingskosten', 'zwangsmigration', 'fadenkreuz']
