@@ -1,0 +1,73 @@
+﻿Kandidaten_ID;Name_total;Beruf;Geburtsjahr;Partei;Walkreis_ID;Plz;Stadt;Nachname;Vorname;Wahlkreis
+10;Johann, Isabell;Dipl. Betriebswirtin;1978;"Christlich DemokratischeUnion Deutschlands (CDU)";1;51519;Odenthal;Johann;Isabell;Osenau
+20;Dr. Börger, Gerald;Ingenieur;1941;"Sozialdemokratische ParteiDeutschlands (SPD)";1;51519;Odenthal;Dr. Börger;Gerald;Osenau
+30;Hollax, Barbara;Instrumentenbauerin;1965;"BÜNDNIS 90/DIE GRÜNEN(GRÜNE)";1;51519;Odenthal;Hollax;Barbara;Osenau
+40;Hartwig, Alwine;Dipl.-Ing.;1973;"Freie Demokratische Partei(FDP)";1;51519;Odenthal;Hartwig;Alwine;Osenau
+10;Querbach, Stefan;Ausbildungskoordinator;1975;"Christlich DemokratischeUnion Deutschlands (CDU)";2;51519;Odenthal;Querbach;Stefan;Osenau
+20;Messer, Dagmar;Lehrerin / Rentnerin;1954;"Sozialdemokratische ParteiDeutschlands (SPD)";2;51519;Odenthal;Messer;Dagmar;Osenau
+30;Sittart, Peter;IT-Projektmanager;1960;"BÜNDNIS 90/DIE GRÜNEN(GRÜNE)";2;51519;Odenthal;Sittart;Peter;Osenau
+40;Schmitz, Hans Josef;Versicherungskfm., Rentner;1952;"Freie Demokratische Partei(FDP)";2;51519;Odenthal;Schmitz;Hans Josef;Osenau
+50;Bayer, Laszlo;CNC Fräser;1978;DIE LINKE (DIE LINKE);2;51519;Odenthal;Bayer;Laszlo;Osenau
+10;Koll, Christa;"Industrie- und Großhandels-kauffrau";1954;"Christlich DemokratischeUnion Deutschlands (CDU)";3;51519;Odenthal;Koll;Christa;Voiswinkel-Sonnenbg.-Höffe
+20;Rudolph, Walburga;Rentnerin;1954;"Sozialdemokratische ParteiDeutschlands (SPD)";3;51519;Odenthal;Rudolph;Walburga;Voiswinkel-Sonnenbg.-Höffe
+30;Burgmer, Michael;Finanzbeamter;1960;"BÜNDNIS 90/DIE GRÜNEN(GRÜNE)";3;51519;Odenthal;Burgmer;Michael;Voiswinkel-Sonnenbg.-Höffe
+40;Baron, Nicole;Systemischer Coach;1975;"Freie Demokratische Partei(FDP)";3;51519;Odenthal;Baron;Nicole;Voiswinkel-Sonnenbg.-Höffe
+50;Bayer, Nadine;Kinderpflegerin;1978;DIE LINKE (DIE LINKE);3;51519;Odenthal;Bayer;Nadine;Voiswinkel-Sonnenbg.-Höffe
+10;Merkenich, Ralf;Technischer Angestellter;1966;"Christlich DemokratischeUnion Deutschlands (CDU)";4;51519;Odenthal;Merkenich;Ralf;Voiswinkel-Küchenberg
+20;Schulz, Erhard;Rentner;1951;"Sozialdemokratische ParteiDeutschlands (SPD)";4;51519;Odenthal;Schulz;Erhard;Voiswinkel-Küchenberg
+30;Tewinkel, Sonja;"Kulturmanager/Geschäftsfüh-rer";1974;"BÜNDNIS 90/DIE GRÜNEN(GRÜNE)";4;51519;Odenthal;Tewinkel;Sonja;Voiswinkel-Küchenberg
+40;Dr. Baron, Niels;Unternehmensberater;1966;"Freie Demokratische Partei(FDP)";4;51519;Odenthal;Dr. Baron;Niels;Voiswinkel-Küchenberg
+50;Gleißner, Marius;Erzieher (Ausbildung);1998;DIE LINKE (DIE LINKE);4;51519;Odenthal;Gleißner;Marius;Voiswinkel-Küchenberg
+10;Wißkirchen, Markus;Diplom-Ingenieur, Landwirt;1967;"Christlich DemokratischeUnion Deutschlands (CDU)";5;51519;Odenthal;Wißkirchen;Markus;Voiswinkel-Heidberg
+20;Deiters, Rolf;Rechtsanwalt;1942;"Sozialdemokratische ParteiDeutschlands (SPD)";5;51519;Odenthal;Deiters;Rolf;Voiswinkel-Heidberg
+30;Dr. Auerbach, Markus;Beamter;1970;"BÜNDNIS 90/DIE GRÜNEN(GRÜNE)";5;51519;Odenthal;Dr. Auerbach;Markus;Voiswinkel-Heidberg
+40;Klamroth, Stefan;Dipl.-Kfm.;1963;"Freie Demokratische Partei(FDP)";5;51519;Odenthal;Klamroth;Stefan;Voiswinkel-Heidberg
+50;Rath, Verena;Hebamme;1975;DIE LINKE (DIE LINKE);5;51519;Odenthal;Rath;Verena;Voiswinkel-Heidberg
+10;Meuter, Stephanie;Verwaltungsfachwirtin;1977;Christlich Demokratische;6;51519;Odenthal;Meuter;Stephanie;Voiswinkel-Mutzbroich
+20;Deiters, Oliver;Betriebswirt;1970;Sozialdemokratische Partei;6;51519;Odenthal;Deiters;Oliver;Voiswinkel-Mutzbroich
+30;Dörper, Norbert;Sozialpädagoge;1966;BÜNDNIS 90/DIE GRÜNEN;6;51519;Odenthal;Dörper;Norbert;Voiswinkel-Mutzbroich
+40;Dr. Wirth, Wolf-Dieter;Pensionär;1934;Freie Demokratische Partei;6;51519;Odenthal;Dr. Wirth;Wolf-Dieter;Voiswinkel-Mutzbroich
+50;Gleißner, Thomas;Krankenpfleger;1958;DIE LINKE (DIE LINKE);6;51519;Odenthal;Gleißner;Thomas;Voiswinkel-Mutzbroich
+10;Saidowski, Sandra;Public Affairs Managerin;1990;Christlich Demokratische;7;51519;Odenthal;Saidowski;Sandra;Hahnenberg
+20;Hölzer, Holger;Mitarbeiter im Verkauf;1972;Sozialdemokratische Partei;7;51519;Odenthal;Hölzer;Holger;Hahnenberg
+30;Stegemann, Josef;Elektroingenieur;1960;BÜNDNIS 90/DIE GRÜNEN;7;51519;Odenthal;Stegemann;Josef;Hahnenberg
+40;Dr. Klamroth, Kirsten;Ärztin;1962;Freie Demokratische Partei;7;51519;Odenthal;Dr. Klamroth;Kirsten;Hahnenberg
+10;Winter, Ralf;Kaufmännischer Angestellter;1967;Christlich Demokratische;8;51519;Odenthal;Winter;Ralf;Glöbusch-Kursiefen
+20;Rudolph-Tieke, Stefanie;Dipl. Sozial-Pädagogin;1971;Sozialdemokratische Partei;8;51519;Odenthal;Rudolph-Tieke;Stefanie;Glöbusch-Kursiefen
+30;Braunleder, Dirk;Fernsehjournalist;1957;BÜNDNIS 90/DIE GRÜNEN;8;51519;Odenthal;Braunleder;Dirk;Glöbusch-Kursiefen
+40;Maertin, Christian;Kommunikationsberater;1970;Freie Demokratische Partei;8;51519;Odenthal;Maertin;Christian;Glöbusch-Kursiefen
+10;Jochum, Christof;Selbständiger Kaufmann;1965;Christlich Demokratische;9;51519;Odenthal;Jochum;Christof;Glöbusch-Wingensiefen
+20;von der Weppen, Ingeborg;Lehrerin / Rentnerin;1946;Sozialdemokratische Partei;9;51519;Odenthal;von der Weppen;Ingeborg;Glöbusch-Wingensiefen
+30;Goder, Ilka;Management-Trainerin;1971;BÜNDNIS 90/DIE GRÜNEN;9;51519;Odenthal;Goder;Ilka;Glöbusch-Wingensiefen
+40;Deubel, Martin;Geschäftsführer;1981;Freie Demokratische Partei;9;51519;Odenthal;Deubel;Martin;Glöbusch-Wingensiefen
+10;Ciliax-Kindling, Nicola;Selbständige Apothekerin;1967;Christlich Demokratische;10;51519;Odenthal;Ciliax-Kindling;Nicola;Altenberg-Blecher
+20;Zenses, Manfred;Dipl. Sozialarbeiter;1950;Sozialdemokratische Partei;10;51519;Odenthal;Zenses;Manfred;Altenberg-Blecher
+30;Osterkamp, Ansgar;IT-Consultant;1963;BÜNDNIS 90/DIE GRÜNEN;10;51519;Odenthal;Osterkamp;Ansgar;Altenberg-Blecher
+40;Dr. Kühner, Dietrich;Dipl.-Phys.;1941;Freie Demokratische Partei;10;51519;Odenthal;Dr. Kühner;Dietrich;Altenberg-Blecher
+50;Gleißner, Annette;Kinderkrankenschwester;1956;DIE LINKE (DIE LINKE);10;51519;Odenthal;Gleißner;Annette;Altenberg-Blecher
+10;Wensierski, Gabriele;Lehrerin;1957;Christlich Demokratische;11;51519;Odenthal;Wensierski;Gabriele;Blecher-Holz-Erberich
+20;Korczykowski, Jessica;Rechtsanwältin;1992;Sozialdemokratische Partei;11;51519;Odenthal;Korczykowski;Jessica;Blecher-Holz-Erberich
+30;Schmitz, Ulrich;Berater, selbständig;1961;BÜNDNIS 90/DIE GRÜNEN;11;51519;Odenthal;Schmitz;Ulrich;Blecher-Holz-Erberich
+40;Dr. Pugell, Bernd;Dipl.-Kfm.;1959;Freie Demokratische Partei;11;51519;Odenthal;Dr. Pugell;Bernd;Blecher-Holz-Erberich
+10;Tretter, Sabine;Rechtsanwältin;1965;"Christlich DemokratischeUnion Deutschlands (CDU)";12;51519;Odenthal;Tretter;Sabine;Blecher
+20;Naseband, Julius;Rentner;1947;"Sozialdemokratische ParteiDeutschlands (SPD)";12;51519;Odenthal;Naseband;Julius;Blecher
+30;Bruns, Christian;Betriebswirt;1970;"BÜNDNIS 90/DIE GRÜNEN(GRÜNE)";12;51519;Odenthal;Bruns;Christian;Blecher
+40;Dr. Kersten, Hans-Christian;Rechtsanwalt;1938;"Freie Demokratische Partei(FDP)";12;51519;Odenthal;Dr. Kersten;Hans-Christian;Blecher
+50;Bayer, Marina;Erzieherin (Ausbildung);2000;DIE LINKE (DIE LINKE);12;51519;Odenthal;Bayer;Marina;Blecher
+10;Dr. Fischer, Heinz-Hubert;"Selbständiger Personalbera-ter";1970;"Christlich DemokratischeUnion Deutschlands (CDU)";13;51519;Odenthal;Dr. Fischer;Heinz-Hubert;Scheuren-Klasmühle
+20;Bockhoff, Melanie;Laborantin;1979;"Sozialdemokratische ParteiDeutschlands (SPD)";13;51519;Odenthal;Bockhoff;Melanie;Scheuren-Klasmühle
+30;Schumacher, Beatrice;"Diplom-Ingenieur Landes-pflege";1978;"BÜNDNIS 90/DIE GRÜNEN(GRÜNE)";13;51519;Odenthal;Schumacher;Beatrice;Scheuren-Klasmühle
+40;Kuhl, Eva;Rechtsanwaltsfachangestellte;1979;"Freie Demokratische Partei(FDP)";13;51519;Odenthal;Kuhl;Eva;Scheuren-Klasmühle
+10;Löhe, Philipp;Verwaltungsfachangestellter;1991;"Christlich DemokratischeUnion Deutschlands (CDU)";14;51519;Odenthal;Löhe;Philipp;Neschen
+20;Brückers, Aron;Schüler;2001;"Sozialdemokratische ParteiDeutschlands (SPD)";14;51519;Odenthal;Brückers;Aron;Neschen
+30;Dr. Nies-Bauer, Christian;Arzt;1980;"BÜNDNIS 90/DIE GRÜNEN(GRÜNE)";14;51519;Odenthal;Dr. Nies-Bauer;Christian;Neschen
+40;Stöckert, Thorsten;Geschäftsführer;1968;"Freie Demokratische Partei(FDP)";14;51519;Odenthal;Stöckert;Thorsten;Neschen
+50;Hoffmann, Erich;Ingenieur;1946;DIE LINKE (DIE LINKE);14;51519;Odenthal;Hoffmann;Erich;Neschen
+10;Kałandyk, Jeremi;Student;2000;"Christlich DemokratischeUnion Deutschlands (CDU)";15;51519;Odenthal;Kałandyk;Jeremi;Eikamp-Süd-Scherf
+20;Dr. Behre, Horst;Dipl. Chemiker;1939;"Sozialdemokratische ParteiDeutschlands (SPD)";15;51519;Odenthal;Dr. Behre;Horst;Eikamp-Süd-Scherf
+30;Ehren, Ursula;Produktionsassistentin;1963;"BÜNDNIS 90/DIE GRÜNEN(GRÜNE)";15;51519;Odenthal;Ehren;Ursula;Eikamp-Süd-Scherf
+40;Durth, Erika;"Garten- und Landschaftsar-chitektin";1942;"Freie Demokratische Partei(FDP)";15;51519;Odenthal;Durth;Erika;Eikamp-Süd-Scherf
+10;Dillenburg, Manfred;Polizeibeamter a.D.;1950;"Christlich DemokratischeUnion Deutschlands (CDU)";16;51519;Odenthal;Dillenburg;Manfred;Eikamp-Nord
+20;Kosters, Wilkin;Regierungsobersekretär;1991;"Sozialdemokratische ParteiDeutschlands (SPD)";16;51519;Odenthal;Kosters;Wilkin;Eikamp-Nord
+30;Osterkamp, Irmhild;Softwareentwicklerin;1962;"BÜNDNIS 90/DIE GRÜNEN(GRÜNE)";16;51519;Odenthal;Osterkamp;Irmhild;Eikamp-Nord
+40;Reget, Peter;Senior Expert Manager;1953;"Freie Demokratische Partei(FDP)";16;51519;Odenthal;Reget;Peter;Eikamp-Nord
