@@ -1,0 +1,17 @@
+,eventgeo_name,num_mentions,eventgeo_lat,eventgeo_long,avg_tone,count
+0,"Bismarck, Nordrhein-Westfalen, Germany",3.5,51.55,7.1,-2.9494830576933904,4
+1,"Bochum, Nordrhein-Westfalen, Germany",14.666666666666666,51.48330000000001,7.21667,-4.301590965791504,3
+2,"Bonn, Nordrhein-Westfalen, Germany",7.066666666666666,50.73329999999999,7.099999999999998,-1.5672282806230522,15
+3,"Bottrop, Nordrhein-Westfalen, Germany",5.0,51.5167,6.91667,-1.87265917602997,2
+4,"Datteln, Nordrhein-Westfalen, Germany",6.5,51.6667,7.38333,-3.279144311902822,6
+5,"Dormagen, Nordrhein-Westfalen, Germany",2.5,51.1,6.83333,-2.29276895943562,2
+6,"Eppendorf, Nordrhein-Westfalen, Germany",6.0,51.45,7.18333,-5.042335297331792,4
+7,"Gutersloh, Nordrhein-Westfalen, Germany",13.0,51.9,8.38333,-3.6665525504964,2
+8,"Haltern, Nordrhein-Westfalen, Germany",2.0,52.1167,7.26667,-3.6802532647408,1
+9,"Heinsberg, Nordrhein-Westfalen, Germany",9.333333333333334,51.0333,8.15,-4.24242424242424,3
+10,"Krefeld, Nordrhein-Westfalen, Germany",5.0,51.3333,6.56667,-4.74040632054176,2
+11,"Marxloh, Nordrhein-Westfalen, Germany",5.0,51.5167,6.76667,1.51515151515151,2
+12,"Rheinberg, Nordrhein-Westfalen, Germany",10.0,51.55,6.6,-3.41614906832298,2
+13,"Sankt Augustin, Nordrhein-Westfalen, Germany",15.0,50.7667,7.18333,-3.914784324387062,4
+14,"Warendorf, Nordrhein-Westfalen, Germany",10.0,51.95000000000001,7.98333,-3.8357982147127867,3
+15,"Wuppertal, Nordrhein-Westfalen, Germany",10.0,51.2667,7.18333,-0.60422960725076,1
